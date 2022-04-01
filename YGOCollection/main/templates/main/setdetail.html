@@ -1,0 +1,92 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+	{% if data.1 %}
+		<p>There are no results.</p>
+	{% else %}
+		<h1 style="color: #4169E1;"><b>Explore</b></h1><hr>
+		<h2 style="color: #4169E1;">{{data.3}}</h2>
+
+		{% if data.4 == 'post' %}
+			{% if data.0|length > 0 %}
+				<div id="addcardspopup" class="w3-panel w3-pale-green w3-border w3-round">
+					<p id="addcards"><b>Cards added successfully.</b></p>
+				</div>
+			{% endif %}
+		{% endif %}
+
+		<form method="post" onsubmit="addcardvalidator();">
+			{% csrf_token %}
+			{% if data.2|length == 0 %}
+				<div class="w3-panel w3-pale-red w3-border w3-round">
+					<p><b>You don't have any sets in your collection. Create a <u><a href="/newset/">new set</a></u> to add cards.</b></p>
+				</div>
+			{% else %}
+				<br>
+				<div class="addtocollection">
+					Add selected cards to:
+					<select class="w3-select filter" name="setlist" id="setlist">
+						{% for item in data.2 %}
+							<option value="{{item.name}}">{{item.name}}</option>
+						{% endfor %}
+					</select>
+					<button class="w3-btn w3-blue w3-round-large" type="submit" name="addcard" value="pressed" style="margin-top: 5px;">Confirm</button>
+				</div>
+				<br>
+			{% endif %}
+			<table class="w3-table w3-striped w3-bordered w3-hoverable">
+				<thead style="background-color: #4169E1; color: white;">
+					<tr>
+						<th><input class="w3-check" type="checkbox" name="checkall" onclick="selectall();"></th>
+						<th>Name</th>
+						<th>Set</th>
+						<th>Code</th>
+						<th>Rarity</th>
+						<th>Quantity</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for card in data.0 %}
+						{% for set in card.card_sets %}
+							{% if data.3 == set.set_name %}
+								<tr>
+									<td><input class="w3-check checkbox" type="checkbox" name="{{set.set_code}}" value="clicked"></td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{card.name}}</td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{set.set_name}}</td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{set.set_code}}</td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{set.set_rarity}}</td>
+									<td>
+										<select class="w3-select" name="quantity-{{set.set_code}}">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+										</select>
+									</td>
+								</tr>
+
+								<tr class="hiddenrow" id="{{set.set_code}}-{{set.set_rarity|cut:' '}}" style="display: none;">
+									<td colspan=2>
+										<img src="{{card.card_images.0.image_url}}" width="168" height="246" alt="{{card.name}}" loading="lazy">
+									</td>
+									<td colspan=4>
+										<p><b>Id</b>: {{card.id}} | <b>Type</b>: {{card.type}}</p>
+										{% if card.type != 'Spell Card' and card.type != 'Trap Card' and card.type != 'Link Monster' and card.type != 'Skill Card' %}
+											<p><b>ATK</b>: {{card.atk}} | <b>DEF</b>: {{card.def}}</p>
+											<p><b>Level</b>: {{card.level}} | <b>Attribute</b>: {{card.attribute}}</p>
+										{% else %}
+											{% if card.type == 'Link Monster' %}
+												<p><b>ATK</b>: {{card.atk}}</p>
+												<p><b>Attribute</b>: {{card.attribute}}</p>
+											{% endif %}
+										{% endif %}
+										<p><b>Description</b>: {{card.desc}}</p>
+									</td>
+								</tr>
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</form>
+	{% endif %}
+{% endblock %}

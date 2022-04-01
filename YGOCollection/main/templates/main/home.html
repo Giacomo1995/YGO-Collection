@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+	<h1 style="color: #4169E1;"><b>Collection</b></h1><hr>
+	<!-- <input type="text" name="search" placeholder="Search..."> -->
+
+	{% if not usersetlist %}
+	<div class="w3-panel w3-pale-blue w3-border w3-round">
+		<p><b>You don't have any sets in your collection. Add a <u><a href="/newset/">new set</a></u> to start!</b></p>
+	</div>
+	{% else %}
+		<form method="post">
+			{% csrf_token %}
+			<button class="w3-btn w3-round-large w3-red" id="deleteset" name="delete" value="delete" type="submit" style="margin-bottom: 5px;"><b>Delete</b></button>
+			<table class="w3-table w3-bordered w3-large w3-hoverable">
+				<thead style="background-color: #4169E1; color: white;">
+					<tr>
+						<th><input class="w3-check" type="checkbox" name="checkall" onclick="selectall();"></th>
+						<th>Name</th>
+						<th>Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in usersetlist %}
+						<tr>
+							<td><input type="checkbox" name="{{item.id}}" value="clicked" class="w3-check checkbox"></td>
+							<td><a class="w3-button" href="/set={{item.name}}/"><b>{{item.name}}</b></a></td>
+							<td>
+								{% if item.missing == 0 and item.collected == 0 %}
+									<b class="w3-text-blue">Empty</b>
+								{% else %}
+									{% if item.missing == 0 %}
+										<b class="w3-text-green">Completed</b>
+									{% else %}
+										{% if item.missing > 1 %}
+										<b class="w3-text-red">{{item.missing}} cards missing</b>
+										{% else %}
+										<b class="w3-text-red">{{item.missing}} card missing</b>
+										{% endif %}
+									{% endif %}
+								{% endif %}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</form>
+	{% endif %}
+
+{% endblock %}

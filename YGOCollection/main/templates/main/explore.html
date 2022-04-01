@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+	{% if data.1 %}
+		<p><b>An error occured.</b></p>
+	{% else %}
+		<!--
+		<label>
+			Search set:
+			<input type="text" name="searchset" placeholder="Search...">
+		</label>
+		-->
+		<h1 style="color: #4169E1;"><b>Explore</b></h1><hr>
+		<h2 style="color: #4169E1;">Card Set List</h2>
+		<table class="w3-table w3-bordered w3-hoverable">
+			<thead style="background-color: #4169E1; color: white;">
+				<tr>
+					<th><p>Name</p></th>
+					<th><p>Code</p></th>
+					<th><p>Number of Cards</p></th>
+					<th><p>Release Date (TCG)</p></th>
+				</tr>
+			</thead>
+			{% for item in data.0 %}
+				<tbody>
+					<tr>
+						<td><a class="w3-button" href="/explore/{{item.set_name_url}}/">{{item.set_name}}</a></td>
+						<td>{{item.set_code}}</td>
+						<td>{{item.num_of_cards}}</td>
+						<td>{{item.tcg_date}}</td>
+					</tr>
+				</tbody>
+			{% endfor %}
+		</table>
+	{% endif %}
+{% endblock %}

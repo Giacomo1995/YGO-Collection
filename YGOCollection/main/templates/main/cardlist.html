@@ -1,0 +1,70 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+	<h1 style="color: #4169E1;"><b>Collection</b></h1><hr>
+	<h2 style="color: #4169E1;" id="mycollection">{{cards.0}}</h2>
+
+	<!-- <input type="text" name="search" placeholder="Search..."> -->
+
+	{% if not cards.1 %}
+		<div class="w3-panel w3-pale-blue w3-border w3-round">
+			<p><b>No cards here.</b></p>
+		</div>
+	{% else %}
+		<form method="post">
+			{% csrf_token %}
+			<button class="w3-btn w3-round-large w3-red" type="submit" id="deletecard" name="delete" value="delete" style="margin-bottom: 5px; margin-right: 10px;"><b>Delete</b></button>
+			<button class="w3-btn w3-round-large w3-blue" type="submit" name="check" value="check" style="margin-bottom: 5px; margin-right: 10px;"><b>Mark as Collected</b></button>
+			<button class="w3-btn w3-round-large w3-blue" type="submit" name="uncheck" value="uncheck" style="margin-bottom: 5px;"><b>Mark as Missing</b></button>
+			<table class="w3-table w3-striped w3-bordered w3-hoverable">
+				<thead style="background-color: #4169E1; color: white;">
+					<tr>
+						<th><input class="w3-check" type="checkbox" name="checkall" onclick="selectall();"></th>
+						<th>Status</th>
+						<th>Name</th>
+						<th>Set</th>
+						<th>Code</th>
+						<th>Rarity</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for card in cards.1 %}
+						<tr>
+							<td><input class="w3-check checkbox" type="checkbox" name="{{card.id}}" value='clicked'></td>
+							<td onclick="showdetails('{{card.id}}');">
+								{% if card.collected %}
+									<b class="w3-text-green">Collected</b>
+								{% else %}
+									<b class="w3-text-red">Missing</b>
+								{% endif %}
+							</td>
+							<td onclick="showdetails('{{card.id}}');">{{card.name}}</td>
+							<td onclick="showdetails('{{card.id}}');">{{card.cardsetname}}</td>
+							<td onclick="showdetails('{{card.id}}');">{{card.cardsetcode}}</td>
+							<td onclick="showdetails('{{card.id}}');">{{card.cardsetrarity}}</td>
+						</tr>
+
+						<tr class="hiddenrow" id="{{card.id}}" style="display: none;">
+							<td colspan=2>
+								<img src="{{card.image_url}}" width="168" height="246" alt="{{card.name}}" loading="lazy">
+							</td>
+							<td colspan=4>
+								<p><b>Id</b>: {{card.cardid}} | <b>Type</b>: {{card.type}}</p>
+								{% if card.type != 'Spell Card' and card.type != 'Trap Card' and card.type != 'Link Monster' and card.type != 'Skill Card' %}
+									<p><b>ATK</b>: {{card.attack}} | <b>DEF</b>: {{card.defence}}</p>
+									<p><b>Level</b>: {{card.level}} | <b>Attribute</b>: {{card.attribute}}</p>
+								{% else %}
+									{% if card.type == 'Link Monster' %}
+										<p><b>ATK</b>: {{card.attack}}</p>
+										<p><b>Attribute</b>: {{card.attribute}}</p>
+									{% endif %}
+								{% endif %}
+								<p><b>Description</b>: {{card.desc}}</p>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</form>
+	{% endif %}
+{% endblock %}

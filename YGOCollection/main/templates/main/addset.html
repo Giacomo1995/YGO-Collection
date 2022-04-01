@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+	<h1 style="color: #4169E1;"><b>New Set</b></h1><hr>
+	<form method="post" action="/newset/">
+		{% csrf_token %}
+		<table id="createsetform">
+			<tbody>
+				<tr><td colspan="2" style="color: #4169E1;">Set Name</td></tr>
+				<tr>
+					<td>{{data.1.form.name}}</td>
+					<td><button class="w3-btn w3-blue w3-round-large" type="submit" name="createbutton" id="createset">Create</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+		{% if data.0.error %}
+			<div class="w3-panel w3-pale-red w3-border w3-round"><p><b>Set already exists. Please enter a different name.</b></p></div>
+		{% endif %}
+	</form>
+{% endblock %}
