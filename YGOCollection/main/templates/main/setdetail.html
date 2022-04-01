@@ -25,12 +25,12 @@
 				<br>
 				<div class="addtocollection">
 					Add selected cards to:
-					<select class="w3-select filter" name="setlist" id="setlist">
+					<select class="w3-select filter w3-large" name="setlist" id="setlist">
 						{% for item in data.2 %}
 							<option value="{{item.name}}">{{item.name}}</option>
 						{% endfor %}
 					</select>
-					<button class="w3-btn w3-blue w3-round-large" type="submit" name="addcard" value="pressed" style="margin-top: 5px;">Confirm</button>
+					<button style="padding: 5px; margin-top: 5px;" class="w3-btn w3-blue w3-round-large" type="submit" name="addcard" value="pressed" style="margin-top: 5px;">Confirm</button>
 				</div>
 				<br>
 			{% endif %}
