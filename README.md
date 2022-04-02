@@ -4,8 +4,8 @@ A **working** prototype which allows you to keep track of your Yu-Gi-Oh! collect
 
 ## Screenshots
 <img src="https://github.com/Giacomo1995/YGO-Collection/blob/master/Resources/collection.png" width="500" heigth="275" alt="Collection">
-<img src="https://github.com/Giacomo1995/YGO-Collection/blob/master/Resources/explore.png" width="500" heigth="275" alt="Explore">
 <img src="https://github.com/Giacomo1995/YGO-Collection/blob/master/Resources/cards.png" width="500" heigth="275" alt="Cards">
+<img src="https://github.com/Giacomo1995/YGO-Collection/blob/master/Resources/explore.png" width="500" heigth="275" alt="Explore">
 <img src="https://github.com/Giacomo1995/YGO-Collection/blob/master/Resources/search.png" width="500" heigth="275" alt="Search">
 
 https://user-images.githubusercontent.com/29896316/161297951-06174648-5e65-4f0a-9226-ec4154ac92f8.mov
