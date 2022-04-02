@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'your_secret_key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.localhost', '127.0.0.1', '[::1]']
 
@@ -103,6 +103,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -120,7 +125,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = os.path.join(BASE_DIR, 'media/')
+STATIC_URL = '/static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -129,7 +134,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
-
-MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
-
-MEDIA_URL= "media/"
