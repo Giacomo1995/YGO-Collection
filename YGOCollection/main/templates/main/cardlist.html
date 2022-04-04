@@ -18,17 +18,21 @@
 				<thead style="background-color: #4169E1; color: white;">
 					<tr>
 						<th><input class="w3-check" type="checkbox" name="checkall" onclick="selectall();"></th>
-						<th>Status</th>
 						<th>Name</th>
 						<th>Set</th>
 						<th>Code</th>
 						<th>Rarity</th>
+						<th>Status</th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for card in cards.1 %}
 						<tr>
 							<td><input class="w3-check checkbox" type="checkbox" name="{{card.id}}" value='clicked'></td>
+							<td onclick="showdetails('{{card.id}}');">{{card.name}}</td>
+							<td onclick="showdetails('{{card.id}}');">{{card.cardsetname}}</td>
+							<td onclick="showdetails('{{card.id}}');">{{card.cardsetcode}}</td>
+							<td onclick="showdetails('{{card.id}}');">{{card.cardsetrarity}}</td>
 							<td onclick="showdetails('{{card.id}}');">
 								{% if card.collected %}
 									<b class="w3-text-green">Collected</b>
@@ -36,10 +40,6 @@
 									<b class="w3-text-red">Missing</b>
 								{% endif %}
 							</td>
-							<td onclick="showdetails('{{card.id}}');">{{card.name}}</td>
-							<td onclick="showdetails('{{card.id}}');">{{card.cardsetname}}</td>
-							<td onclick="showdetails('{{card.id}}');">{{card.cardsetcode}}</td>
-							<td onclick="showdetails('{{card.id}}');">{{card.cardsetrarity}}</td>
 						</tr>
 
 						<tr class="hiddenrow" id="{{card.id}}" style="display: none;">
