@@ -8,7 +8,9 @@ A **working** prototype which allows you to keep track of your Yu-Gi-Oh! collect
 <img src="https://github.com/Giacomo1995/YGO-Collection/blob/master/Resources/explore.png" width="500" heigth="275" alt="Explore">
 <img src="https://github.com/Giacomo1995/YGO-Collection/blob/master/Resources/search.png" width="500" heigth="275" alt="Search">
 
-https://user-images.githubusercontent.com/29896316/161297951-06174648-5e65-4f0a-9226-ec4154ac92f8.mov
+
+https://user-images.githubusercontent.com/29896316/161547736-8d04e9a7-691f-4667-ae19-52c4a4186fab.mov
+
 
 ## Features
 - Create custom sets
