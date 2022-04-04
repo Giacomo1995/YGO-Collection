@@ -68,7 +68,9 @@ def cardlist(request, setname):
                     usrset.save()
                     item.save()
     setid = UserSet.objects.get(name=setname).id
-    return render(request, os.path.join('main', 'cardlist.html'), {'cards': [setname, list(Card.objects.filter(userset=setid))]})
+    collected = UserSet.objects.get(name=setname).collected
+    total = collected + UserSet.objects.get(name=setname).missing
+    return render(request, os.path.join('main', 'cardlist.html'), {'cards': [[setname, collected, total], list(Card.objects.filter(userset=setid))]})
 
 
 def createset(request):

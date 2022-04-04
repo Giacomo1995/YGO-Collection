@@ -17,6 +17,7 @@
 					<tr>
 						<th><input class="w3-check" type="checkbox" name="checkall" onclick="selectall();"></th>
 						<th>Name</th>
+						<th>(Collected/Total)</th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -25,6 +26,7 @@
 						<tr>
 							<td><input type="checkbox" name="{{item.id}}" value="clicked" class="w3-check checkbox"></td>
 							<td><a style="margin:0; padding:0;" class="w3-button" href="/set={{item.name}}/"><b>{{item.name}}</b></a></td>
+							<td><b>({{item.collected}}/{{item.collected|add:item.missing}})</b></td>
 							<td>
 								{% if item.missing == 0 and item.collected == 0 %}
 									<b class="w3-text-blue">Empty</b>
