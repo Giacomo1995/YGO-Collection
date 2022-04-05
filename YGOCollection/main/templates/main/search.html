@@ -42,7 +42,7 @@
 										<option value="{{item.name}}">{{item.name}}</option>
 									{% endfor %}
 								</select>
-								<button style="padding: 5px; margin-top: 5px;" class="w3-btn w3-blue w3-round-large" type="submit" name="addcard" value="{{data.4.searchkey}}" style="margin-top: 5px;">Confirm</button>
+								<button style="padding: 5px; margin-top: 5px;" class="w3-btn w3-blue w3-round-large" type="submit" name="addcard" value="{{data.4.searchkey}}">Confirm</button>
 						</div>
 						<br>
 					{% endif %}
@@ -62,13 +62,13 @@
 						{% for card in data.1 %}
 							{% for set in card.card_sets %}
 								<tr>
-									<td><input class="w3-check checkbox" type="checkbox" name="{{set.set_code}}" value="clicked"></td>
-									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{card.name}}</td>
-									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{set.set_name}}</td>
-									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{set.set_code}}</td>
-									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity|cut:' '}}');">{{set.set_rarity}}</td>
+									<td><input class="w3-check checkbox" type="checkbox" name="{{set.set_code}}-{{set.set_rarity|cut:' '}}" value="clicked"></td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity_code|slice:'1:-1'}}');">{{card.name}}</td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity_code|slice:'1:-1'}}');">{{set.set_name}}</td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity_code|slice:'1:-1'}}');">{{set.set_code}}</td>
+									<td onclick="showdetails('{{set.set_code}}-{{set.set_rarity_code|slice:'1:-1'}}');">{{set.set_rarity}}</td>
 									<td>
-										<select class="w3-select" name="quantity-{{set.set_code}}">
+										<select class="w3-select" name="quantity-{{set.set_code}}-{{set.set_rarity|cut:' '}}">
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -76,7 +76,7 @@
 									</td>
 								</tr>
 
-								<tr class="hiddenrow" id="{{set.set_code}}-{{set.set_rarity|cut:' '}}" style="display: none;">
+								<tr class="hiddenrow" id="{{set.set_code}}-{{set.set_rarity_code|slice:'1:-1'}}" style="display: none;">
 									<td colspan=2>
 										<img src="{{card.card_images.0.image_url}}" width="168" height="246" alt="{{card.name}}" loading="lazy">
 									</td>

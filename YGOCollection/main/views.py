@@ -115,7 +115,8 @@ def search(request):
                 for card in cards:
                     if card.get('card_sets'):
                         for set in card.get('card_sets'):
-                            if request.POST.get(str(set['set_code'])) == 'clicked':
+                            name = set.get('set_code') + '-' + "".join(set.get('set_rarity').split(' '))
+                            if request.POST.get(str(name)) == 'clicked':
                                 if card.get('type') != 'Spell Card' and card.get('type') != 'Trap Card' and card.get('type') != 'Link Monster' and card.get('type') != 'Skill Card':
                                     newcard = Card(
                                     userset = UserSet.objects.get(name=usersetname),
@@ -169,7 +170,7 @@ def search(request):
                                     )
 
                                 usrset = UserSet.objects.get(name=usersetname)
-                                for _ in range(int(request.POST.get('quantity-' + set['set_code']))):
+                                for _ in range(int(request.POST.get('quantity-' + name))):
                                     newcard.copy().save()
                                     usrset.missing += 1
 
@@ -231,7 +232,8 @@ def setdetail(request, selectedset):
                 for card in cards:
                     if card.get('card_sets'):
                         for set in card.get('card_sets'):
-                            if request.POST.get(str(set.get('set_code'))) == 'clicked':
+                            name = set.get('set_code') + '-' + "".join(set.get('set_rarity').split(' '))
+                            if request.POST.get(str(name)) == 'clicked':
                                 if card.get('type') != 'Spell Card' and card.get('type') != 'Trap Card' and card.get('type') != 'Link Monster' and card.get('type') != 'Skill Card':
                                     newcard = Card(
                                     userset = UserSet.objects.get(name=usersetname),
@@ -285,7 +287,7 @@ def setdetail(request, selectedset):
                                     )
 
                                 usrset = UserSet.objects.get(name=usersetname)
-                                for _ in range(int(request.POST.get('quantity-' + set['set_code']))):
+                                for _ in range(int(request.POST.get('quantity-' + name))):
                                     newcard.copy().save()
                                     usrset.missing += 1
 
